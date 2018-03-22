@@ -1,6 +1,9 @@
 package io.kit.lib
 
 import android.view.View
+/**
+ * make View visible
+ * */
 
 fun View.gone() {
     visibility = View.GONE
