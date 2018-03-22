@@ -39,5 +39,5 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
 
-      - run: gradle clean build bintrayUpload -PdryRun=false
+      - run: gradlew clean build bintrayUpload -PdryRun=false
 
