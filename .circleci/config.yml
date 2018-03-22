@@ -1,10 +1,4 @@
 version: 2
-general:
-  branches:
-    only:
-      - master
-      - /feature-.*/
-
 jobs:
   build:
     branches:
