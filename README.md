@@ -1,5 +1,5 @@
-# kxl
-Kotlin Xuyak  Library
+# KHL
+Kotlin Huyak  Library
 [ ![Download](https://api.bintray.com/packages/kuzloivan/maven/khl/images/download.svg) ](https://bintray.com/kuzloivan/maven/khl/_latestVersion)
 
 
