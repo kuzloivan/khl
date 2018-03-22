@@ -1,9 +1,6 @@
 version: 2
 jobs:
-  build:
-    branches:
-      only:
-        - master
+  test:
     working_directory: ~/code
     docker:
       - image: circleci/android:api-27-alpha
@@ -22,9 +19,8 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Run Build
-          command: ./gradlew  clean build bintrayUpload -PdryRun=false
-
-  build:
+          command: ./gradlew clean assembleRelease
+  deploy:
       working_directory: ~/code
       docker:
         - image: circleci/android:api-27-alpha
@@ -43,4 +39,19 @@ jobs:
             key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
         - run:
             name: Run Build
-            command: ./gradlew  clean build assembleRelease
+            command: ./gradlew clean build bintrayUpload -PdryRun=false
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
+  deploy:
+    filters:
+      branches:
+        only: master
+    jobs:
+      - test
+      - deploy
+
+
