@@ -47,12 +47,14 @@ workflows:
     jobs:
       - test
   deploy:
-    filters:
-      branches:
-        only:
-          -master
     jobs:
       - test
       - deploy
+          requires:
+            - test
+          filters:
+            branchexs:
+              only:
+                - master
 
 
