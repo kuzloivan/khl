@@ -25,9 +25,6 @@ jobs:
           command: ./gradlew  clean build bintrayUpload -PdryRun=false
 
   build:
-      branches:
-        ignore:
-          - master
       working_directory: ~/code
       docker:
         - image: circleci/android:api-27-alpha
