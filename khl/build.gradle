@@ -3,11 +3,11 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'com.novoda.bintray-release'
 
-def BUILD_NUMBER = System.getenv('CIRCLE_BUILD_NUM')?:0
+def BUILD_NUMBER = System.getenv('CIRCLE_BUILD_NUM').toInteger()?:0
 def BINTRAY_USER = System.getenv('bintray_user')
 def BINTRAY_APIKEY = System.getenv('bintray_apikey')
 
-def PUBLISH_VERSION = "0.0.1"
+def PUBLISH_VERSION = "0.0.$BUILD_NUMBER"
 
 allprojects {
     tasks.withType(Javadoc) {
@@ -23,9 +23,9 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 1
+        versionCode BUILD_NUMBER
         versionName PUBLISH_VERSION
-        println BUILD_NUMBER
+
 
     }
 
