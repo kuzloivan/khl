@@ -3,29 +3,22 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'com.novoda.bintray-release'
 
-def BUILD_NUMBER = (System.getenv('CIRCLE_BUILD_NUM')?:0).toInteger()
+def BUILD_NUMBER = (System.getenv('CIRCLE_BUILD_NUM') ?: 0).toInteger()
 def BINTRAY_USER = System.getenv('bintray_user')
 def BINTRAY_APIKEY = System.getenv('bintray_apikey')
 
 def PUBLISH_VERSION = "0.0.$BUILD_NUMBER"
 
-allprojects {
-    tasks.withType(Javadoc) {
-        options.addStringOption('Xdoclint:none', '-quiet')
-        options.addStringOption('encoding', 'UTF-8')
-        excludes = ['**/*.kt']
-    }
-}
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion 21
+        targetSdkVersion 27
+        versionCode 1
         versionCode BUILD_NUMBER
         versionName PUBLISH_VERSION
-
 
     }
 
@@ -35,21 +28,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.11'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
-repositories {
-    mavenCentral()
-}
-
 
 publish {
     userOrg = 'kuzloivan'
     groupId = 'io.kit.android'
-    artifactId = 'khl'
+    artifactId = 'khl-rx'
     publishVersion = PUBLISH_VERSION
     desc = 'Oh hi, this is a nice description for a project, right?'
     website = 'https://github.com/kuzloivan/kxl'

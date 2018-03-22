@@ -1,1 +1,1 @@
-include ':app', ':khl'
+include ':app', ':khl', ':khl-rx'
