@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  build:
     working_directory: ~/code
     docker:
       - image: circleci/android:api-27-alpha
@@ -41,20 +41,18 @@ jobs:
             name: Run Build
             command: ./gradlew clean build bintrayUpload -PdryRun=false
 
+
 workflows:
   version: 2
-  test:
+  build-and-deploy:
     jobs:
-      - test
-  deploy:
-    jobs:
-      - test
-      - deploy
+      - build
+      - deploy:
           requires:
-            - test
+            - build
           filters:
-            branchexs:
-              only:
-                - master
+            branches:
+              only: master
+
 
 
