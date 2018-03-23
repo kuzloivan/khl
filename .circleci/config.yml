@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  build:
     working_directory: ~/code
     docker:
       - image: circleci/android:api-27-alpha
@@ -20,7 +20,7 @@ jobs:
       - run:
           name: Run Build
           command: ./gradlew clean assembleRelease
-  build:
+  deploy:
       working_directory: ~/code
       docker:
         - image: circleci/android:api-27-alpha
@@ -39,22 +39,20 @@ jobs:
             key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
         - run:
             name: Run Build
-            command: ./gradlew bintrayUpload -PdryRun=false
+            command: ./gradlew clean build bintrayUpload -PdryRun=false
+
 
 workflows:
   version: 2
-  app_test:
+  build-and-deploy:
     jobs:
-      - test
-  app_deploy:
-    jobs:
-      - test
       - build
+      - deploy:
           requires:
-            - test
+            - build
           filters:
-            branchexs:
-              only:
-                - master
+            branches:
+              only: master
+
 
 
