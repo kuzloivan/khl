@@ -39,7 +39,7 @@ jobs:
             key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
         - run:
             name: Run Build
-            command: ./gradlew clean build bintrayUpload -PdryRun=false
+            command: ./gradlew :khl:clean :khl:build :khl:bintrayUpload -PdryRun=false && ./gradlew :khl-rx:clean :khl-rx:build :khl-rx:bintrayUpload -PdryRun=false
 
 
 workflows:
