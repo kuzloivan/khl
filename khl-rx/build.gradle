@@ -9,6 +9,13 @@ def BINTRAY_APIKEY = System.getenv('bintray_apikey')
 
 def PUBLISH_VERSION = "0.0.$BUILD_NUMBER"
 
+allprojects {
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+        excludes = ['**/*.kt']
+    }
+}
 
 android {
     compileSdkVersion 27
