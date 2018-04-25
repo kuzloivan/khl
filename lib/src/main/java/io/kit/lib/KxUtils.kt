@@ -10,9 +10,9 @@ fun <R : Any> runIf(condition: Boolean, block: () -> R) {
     if (condition) block()
 }
 
-fun <T : Any, R : Any> defaultLet(t: T?, block: (t: T) -> R, defaultBlock: () -> R): R =
-        if (t != null) {
-            block(t)
+fun <T, R> T?.elseLet(block: (T) -> R, elseBlock: () -> R): R =
+        if (this != null) {
+            block(this)
         } else {
-            defaultBlock()
+            elseBlock()
         }
